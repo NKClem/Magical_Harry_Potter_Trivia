@@ -21,7 +21,7 @@ var questionOne = {
 	name: "1. What is Harry Potter's cousin's name?",
 	answer: "Dudley",
 	options: ["Dudley", "Samwise", "The Mountain", "Fred"],
-	picture: '../../assets/images/dudley.gif'
+	picture: '..images/dudley.gif'
 };
 
 var questionTwo = {
@@ -94,7 +94,8 @@ var questionArr = [questionOne, questionTwo, questionThree, questionFour, questi
 
 //click function to start game
 $('#start-button').click(function() {
-	$('#start-button').hide('fast', startGame());
+	$('#start-button').hide();
+	startGame();
 	
 });
 
@@ -125,13 +126,18 @@ function startGame() {
 function quizCountdown() {
 	$('#timer').text(time);
 	time--;
+	if (time < 5) {
+		$('#timer').css('color', 'red');
+	}
 	if (time < 0) {
+		numOfLosses++;
 		clearInterval(quizTimer);
 		switchToGif();
 		$('#question').text('Time is up! The answer is ' + questionArr[currentQuestion].answer + '!');
 		$('#gif-here').html($('<img>', {src: questionArr[currentQuestion].picture}));
+		setTimeout(moveToNextQuestion, 3000);
 	}
-	//setTimeout to startGame()
+
 }
 
 //reset quiz timer function
@@ -153,17 +159,17 @@ function setQuestions(obj) {
 function checkForCorrectAnswer(guess) {
 	if (userGuess == answer) {
 		numOfWins++;
-		console.log('Wins: ' + numOfWins);
 		switchToGif();
 		$('#question').text('Correct! The answer is ' + questionArr[currentQuestion].answer + '!');
-		$('#gif-here').show('fast').html($('<img>', {src: questionArr[currentQuestion].picture}));
+		$('#gif-here').html($('<img>', {src: questionArr[currentQuestion].picture}));
+		setTimeout(moveToNextQuestion, 3000);
 		
 	} else {
 		numOfLosses++;
-		console.log('Losses: ' + numOfLosses);
 		switchToGif();
 		$('#question').text('Nope... The correct answer is ' + questionArr[currentQuestion].answer + '.');
 		$('#gif-here').html($('<img>', {src: questionArr[currentQuestion].picture}));
+		setTimeout(moveToNextQuestion, 3000);
 	}
 }
 
@@ -174,18 +180,31 @@ function checkForCorrectAnswer(guess) {
 //	startGame();
 //}, 8000)
 
+//function to move to next question
+function moveToNextQuestion() {
+	currentQuestion++;
+	switchToAnswers();
+	$('#timer').hide();
+	time = 15;
+	$('#timer').css('color', 'white').show();
+	startGame()
+}
+
 //functions to call depending on win or loss
 function switchToGif() {
-	$('.answers').hide('fast');
-	$('#gif-here').show('fast');
+	$('.answers').hide();
+	$('#gif-here').show();
 }
 
 function switchToAnswers() {
-	$('.answers').show('fast');
-	$('#gif-here').hide('fast');
+	$('.answers').show();
+	$('#gif-here').hide();
 }
 
+//function for end of game
+function endOfGame() {
 
+}
 
 
 
