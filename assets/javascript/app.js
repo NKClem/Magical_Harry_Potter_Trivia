@@ -18,7 +18,7 @@ var currentQuestionObject;
    
 //question variables
 var questionOne = {
-	name: "1. What is Harry Potter's cousin's name?",
+	name: "1. What is the name of Harry Potter's cousin?",
 	answer: "Dudley",
 	options: ["Dudley", "Samwise", "The Mountain", "Fred"],
 	picture: '..images/dudley.gif'
@@ -108,11 +108,12 @@ $('.answers').click(function() {
 
 
 function startGame() {
+	quizTimer = setInterval(quizCountdown, 1000);
 	if (currentQuestion <= questionArr.length) {
 		var object = questionArr[currentQuestion];
 		answer = object.answer;
 		setQuestions(object);
-		quizTimer = setInterval(quizCountdown, 1000);
+		//quizTimer = setInterval(quizCountdown, 1000);
 		console.log('Wins: ' + numOfWins);
 		console.log('Losses: ' + numOfLosses);
 	} else {
@@ -124,7 +125,7 @@ function startGame() {
 
 //quiz timer function
 function quizCountdown() {
-	$('#timer').text(time);
+	$('#timer').text('You have ' + time + ' seconds remaining!');
 	time--;
 	if (time < 5) {
 		$('#timer').css('color', 'red');

@@ -10,7 +10,10 @@ body {
 	color: #ffffff;
 }
 
-.page-header {
+#heading {
+	color: #c2ab32;
+	font-size: 52px;
+	text-shadow: 2px 2px 5px black;
 	text-align: center;
 	font-family: 'Eagle Lake', cursive;
 }
@@ -26,15 +29,41 @@ body {
 	font-size: 24px;
 }
 
-#timer, #question, .answers, #message {
+.answers, #message {
 	font-family: 'Rambla', sans-serif;
 	margin: 30px 0;
 	text-align: center;
 	font-size: 24px;
 }
 
+#question {
+	font-family: 'Rambla', sans-serif;
+	margin: 50px 0 30px 0;
+	text-align: center;
+	font-weight: bold;
+	font-size: 28px;
+}
+
+#timer {
+	font-family: 'Rambla', sans-serif;
+	color: #c2ab32;
+	text-shadow: 2px 2px 5px black;
+	margin: 30px 0;
+	text-align: center;
+	font-size: 35px;
+	font-weight: bolder;
+}
+
+.answers:hover {
+	background-color: #c0b6d8;
+	color: #300d80;
+	font-weight: bolder;
+	cursor: pointer;
+}
+
 #button-1, #button-2, #button-3, #button-4 {
 	margin: 40px 0;
+	padding: 30px 0;
 }
 
 #gif-here {
