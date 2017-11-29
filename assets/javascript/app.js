@@ -8,6 +8,7 @@ var nextQuestion;
 //wins and losses variables
 var numOfWins = 0;
 var numOfLosses = 0;
+var numOfQuestionsMissed = 0;
    
 //variable to cycle through questions
 var currentQuestion = 0;
@@ -21,70 +22,70 @@ var questionOne = {
 	name: "1. What is the name of Harry Potter's cousin?",
 	answer: "Dudley",
 	options: ["Dudley", "Samwise", "The Mountain", "Fred"],
-	picture: '..images/dudley.gif'
+	picture: './assets/images/dudley.gif'
 };
 
 var questionTwo = {
 	name: "2. What is the language that Harry Potter is able to speak and understand that not many other wizards are able to?",
 	answer: "Parseltongue",
 	options: ["Muggle", "Marauder", "Parseltongue", "Latin"],
-	picture: '../images/parseltongue.gif'
+	picture: './assets/images/parseltongue.gif'
 };
 
 var questionThree = {
 	name: "3. What is the name of the Weasleys' Great Grey Owl?",
 	answer: "Errol",
 	options: ["Peter Pettigrew", "Errol", "Crookshanks", "Grey Wind"],
-	picture: '../images/errol.gif'
+	picture: './assets/images/errol.gif'
 };
 
 var questionFour = {
 	name: "4. What is the name of the wizarding bank in Diagon Alley?",
 	answer: "Gringotts Wizarding Bank",
 	options: ["Gringotts Bank and Trust", "Wizarding Credit Union", "Regions", "Gringotts Wizarding Bank"],
-	picture: '../images/gringotts.gif'
+	picture: './assets/images/gringotts.gif'
 };
 
 var questionFive = {
 	name: "5. Who guards the wizarding prison Azkaban?",
 	answer: "Dementors",
 	options: ["Dementors", "Goblins", "Giants", "Voldemort"],
-	picture: '../images/dementors.gif'
+	picture: './assets/images/dementors.gif'
 };
 
 var questionSix = {
 	name: "6. What was the type of dragon that Harry Potter had to get by in the Triwizard Tournament?",	
 	answer: "Hungarian Horntail",
 	options: ["Hungarian Horntail", "Norwegian Ridgeback", "Swedish Shortsnout", "Common Welsh Green"],
-	picture: '../images/horntail.gif'
+	picture: './assets/images/horntail.gif'
 };
 
 var questionSeven = {
 	name: "7. What was the name of the group founded by Albus Dumbledore to combat Lord Voldemort during his rise in 1970?",
 	answer: "The Order of the Phoenix",
 	options: ["The Patronus Speakers", "The Fellowship of the Phoenix", "Dumbledore's Army", "The Order of the Phoenix"],
-	picture: '../images/orderofthephoenix.gif'
+	picture: './assets/images/orderofthephoenix.gif'
 };
 
 var questionEight = {
 	name: "8. How many horcruxes did Lord Voldemort create?  (Hint:  It is considered the most magical number.)",
 	answer: "Seven",
 	options: ["Seven", "Six", "Four", "One"],
-	picture: '../images/horcrux.gif'
+	picture: './assets/images/horcrux.gif'
 };
 
 var questionNine = {
 	name: "9. What is the name of the Black family's house-elf?",
 	answer: "Kreacher",
 	options: ["Dobby", "Kreacher", "Norbert", "Bill"],
-	picture: '../images/kreacher.gif'
+	picture: './assets/images/kreacher.gif'
 };
 
 var questionTen = {
 	name: "10. Which constellation contains the star system that is Harry Potter's godfather's namesake?",
 	answer: "Canis Major",
 	options: ["Ursa Major", "Andromeda", "Orion", "Canis Major"],
-	picture: '../images/sirius.gif'	
+	picture: 'C:/Users/Nicole/Desktop/Git Repositories/For Class/Homework/Week 5/TriviaGame/assets/images/sirius.gif'	
 };
 
 var questionArr = [questionOne, questionTwo, questionThree, questionFour, questionFive, questionSix, questionSeven, questionEight, questionNine, questionTen];
@@ -95,7 +96,13 @@ var questionArr = [questionOne, questionTwo, questionThree, questionFour, questi
 //click function to start game
 $('#start-button').click(function() {
 	$('#start-button').hide();
+	
 	startGame();
+	$('.answers').hover(function() {
+		$(this).addClass('hover-class');
+	}, function() {
+		$(this).removeClass('hover-class');
+	})
 	
 });
 
@@ -108,17 +115,12 @@ $('.answers').click(function() {
 
 
 function startGame() {
-	quizTimer = setInterval(quizCountdown, 1000);
 	if (currentQuestion <= questionArr.length) {
 		var object = questionArr[currentQuestion];
 		answer = object.answer;
 		setQuestions(object);
-		//quizTimer = setInterval(quizCountdown, 1000);
-		console.log('Wins: ' + numOfWins);
-		console.log('Losses: ' + numOfLosses);
-	} else {
-		//game over
-	}
+		quizTimer = setInterval(quizCountdown, 1000);
+	} 
 }
 
 
@@ -131,7 +133,7 @@ function quizCountdown() {
 		$('#timer').css('color', 'red');
 	}
 	if (time < 0) {
-		numOfLosses++;
+		numOfQuestionsMissed++;
 		clearInterval(quizTimer);
 		switchToGif();
 		$('#question').text('Time is up! The answer is ' + questionArr[currentQuestion].answer + '!');
@@ -184,11 +186,15 @@ function checkForCorrectAnswer(guess) {
 //function to move to next question
 function moveToNextQuestion() {
 	currentQuestion++;
-	switchToAnswers();
-	$('#timer').hide();
-	time = 15;
-	$('#timer').css('color', 'white').show();
-	startGame()
+	if (currentQuestion != questionArr[-1]){
+		switchToAnswers();
+		$('#timer').hide();
+		time = 15;
+		$('#timer').css('color', 'white').show();
+		startGame();
+	} else {
+		endOfGame();
+	}
 }
 
 //functions to call depending on win or loss
@@ -204,7 +210,11 @@ function switchToAnswers() {
 
 //function for end of game
 function endOfGame() {
-
+	$('#question').text('Game Over!');
+	$('#question').append($('<div></div>').addClass('answers').text('Correct Responses: ' + numOfWins));
+	$('#question').append($('<div></div>').addClass('answers').text('Incorrect Responses: '+ numOfLosses));
+	$('#question').append($('<div></div>').addClass('answers').text('Questions Unanswered: '+ numOfQuestionsMissed));
+	$('#start-button').show().text('Play again?');
 }
 
 

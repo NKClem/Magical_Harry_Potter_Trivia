@@ -20,7 +20,7 @@ body {
 
 #start-button {
 	color: #ffffff;
-	background-color: #005959;
+	background-color: #300d80;
 	opacity: 1;
 	width: 500px;
 	height: 100px;
@@ -54,7 +54,7 @@ body {
 	font-weight: bolder;
 }
 
-.answers:hover {
+.hover-class {
 	background-color: #c0b6d8;
 	color: #300d80;
 	font-weight: bolder;
