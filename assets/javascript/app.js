@@ -11,7 +11,7 @@ var numOfLosses = 0;
 var numOfQuestionsMissed = 0;
    
 //variable to cycle through questions
-var currentQuestion = 0;
+var currentQuestion = 8;
    
 //user's guess and correct answer variables
 var userGuess;
@@ -85,7 +85,7 @@ var questionTen = {
 	name: "10. Which constellation contains the star system that is Harry Potter's godfather's namesake?",
 	answer: "Canis Major",
 	options: ["Ursa Major", "Andromeda", "Orion", "Canis Major"],
-	picture: 'C:/Users/Nicole/Desktop/Git Repositories/For Class/Homework/Week 5/TriviaGame/assets/images/sirius.gif'	
+	picture: './assets/images/sirius.gif'	
 };
 
 var questionArr = [questionOne, questionTwo, questionThree, questionFour, questionFive, questionSix, questionSeven, questionEight, questionNine, questionTen];
@@ -94,15 +94,10 @@ var questionArr = [questionOne, questionTwo, questionThree, questionFour, questi
 
 
 //click function to start game
-$('#start-button').click(function startGame() {
+$('#start-button').click(function () {
 	$('#start-button').hide();
-
+	setButtonEffects();
 	runGame();
-	$('.answers').hover(function() {
-		$(this).addClass('hover-class');
-	}, function() {
-		$(this).removeClass('hover-class');
-	})
 	
 });
 
@@ -112,7 +107,13 @@ $('.answers').click(function() {
 	checkForCorrectAnswer();
 });
 
-
+function setButtonEffects() {
+	$('.answers').hover(function() {
+		$(this).addClass('hover-class');
+	}, function() {
+		$(this).removeClass('hover-class');
+	});
+}
 
 function runGame() {
 	if (currentQuestion <= questionArr.length) {
@@ -122,7 +123,6 @@ function runGame() {
 		quizTimer = setInterval(quizCountdown, 1000);
 	} 
 }
-
 
 
 //quiz timer function
@@ -145,10 +145,12 @@ function quizCountdown() {
 
 //reset quiz timer function
 function resetQuiz() {
+	$('.new-div').remove();
 	time = 15;
 	numOfWins = 0;
 	numOfLosses = 0;
 	numOfQuestionsMissed = 0;
+	currentQuestion = 0;
 	runGame();
 
 }
@@ -211,14 +213,18 @@ function switchToAnswers() {
 //function for end of game
 function endOfGame() {
 	$('#gif-here').hide();
+	$('.answers').removeClass('hover-class');
 	$('#question').text('Game Over!');
-	$('#question').append($('<div></div>').addClass('answers').text('Correct Responses: ' + numOfWins));
-	$('#question').append($('<div></div>').addClass('answers').text('Incorrect Responses: '+ numOfLosses));
-	$('#question').append($('<div></div>').addClass('answers').text('Questions Unanswered: '+ numOfQuestionsMissed));
+	$('#question').append($('<div></div>').addClass('new-div').text('Correct Responses: ' + numOfWins));
+	$('#question').append($('<div></div>').addClass('new-div').text('Incorrect Responses: '+ numOfLosses));
+	$('#question').append($('<div></div>').addClass('new-div').text('Questions Unanswered: '+ numOfQuestionsMissed));
 	$('#start-button').show().text('Play again?');
+	$('#start-button').off('click');
 	$('#start-button').click(function() {
+		$('#start-button').hide();
 		resetQuiz();
-		startGame();
+		setButtonEffects();
+		runGame();
 	});
 }
 
