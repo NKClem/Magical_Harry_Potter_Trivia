@@ -94,10 +94,10 @@ var questionArr = [questionOne, questionTwo, questionThree, questionFour, questi
 
 
 //click function to start game
-$('#start-button').click(function() {
+$('#start-button').click(function startGame() {
 	$('#start-button').hide();
-	
-	startGame();
+
+	runGame();
 	$('.answers').hover(function() {
 		$(this).addClass('hover-class');
 	}, function() {
@@ -114,7 +114,7 @@ $('.answers').click(function() {
 
 
 
-function startGame() {
+function runGame() {
 	if (currentQuestion <= questionArr.length) {
 		var object = questionArr[currentQuestion];
 		answer = object.answer;
@@ -144,9 +144,13 @@ function quizCountdown() {
 }
 
 //reset quiz timer function
-function resetQuizCountdown() {
-	time = 20;
-	$('#timer').text(time);
+function resetQuiz() {
+	time = 15;
+	numOfWins = 0;
+	numOfLosses = 0;
+	numOfQuestionsMissed = 0;
+	runGame();
+
 }
 
 //function to populate questions in html
@@ -176,22 +180,18 @@ function checkForCorrectAnswer(guess) {
 	}
 }
 
-//reset timer
-//nextQuestion = setTimeout(function() {
-//	currentQuestion++;
-//	switchToAnswers();
-//	startGame();
-//}, 8000)
+//function to check for another object in questionArr
+
 
 //function to move to next question
 function moveToNextQuestion() {
 	currentQuestion++;
-	if (currentQuestion != questionArr[-1]){
+	if (currentQuestion < questionArr.length){
 		switchToAnswers();
 		$('#timer').hide();
 		time = 15;
 		$('#timer').css('color', 'white').show();
-		startGame();
+		runGame();
 	} else {
 		endOfGame();
 	}
@@ -210,13 +210,17 @@ function switchToAnswers() {
 
 //function for end of game
 function endOfGame() {
+	$('#gif-here').hide();
 	$('#question').text('Game Over!');
 	$('#question').append($('<div></div>').addClass('answers').text('Correct Responses: ' + numOfWins));
 	$('#question').append($('<div></div>').addClass('answers').text('Incorrect Responses: '+ numOfLosses));
 	$('#question').append($('<div></div>').addClass('answers').text('Questions Unanswered: '+ numOfQuestionsMissed));
 	$('#start-button').show().text('Play again?');
+	$('#start-button').click(function() {
+		resetQuiz();
+		startGame();
+	});
 }
-
 
 
 
