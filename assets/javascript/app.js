@@ -137,7 +137,7 @@ function quizCountdown() {
 		switchToGif();
 		$('#question').text('Time is up! The answer is ' + questionArr[currentQuestion].answer + '!');
 		$('#gif-here').html($('<img>', {src: questionArr[currentQuestion].picture}));
-		setTimeout(moveToNextQuestion, 3000);
+		setTimeout(moveToNextQuestion, 5000);
 	}
 
 }
@@ -169,14 +169,14 @@ function checkForCorrectAnswer(guess) {
 		switchToGif();
 		$('#question').text('Correct! The answer is ' + questionArr[currentQuestion].answer + '!');
 		$('#gif-here').html($('<img>', {src: questionArr[currentQuestion].picture}));
-		setTimeout(moveToNextQuestion, 3000);
+		setTimeout(moveToNextQuestion, 5000);
 		
 	} else {
 		numOfLosses++;
 		switchToGif();
 		$('#question').text('Nope... The correct answer is ' + questionArr[currentQuestion].answer + '.');
 		$('#gif-here').html($('<img>', {src: questionArr[currentQuestion].picture}));
-		setTimeout(moveToNextQuestion, 3000);
+		setTimeout(moveToNextQuestion, 5000);
 	}
 }
 
