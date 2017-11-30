@@ -11,11 +11,10 @@ var numOfLosses = 0;
 var numOfQuestionsMissed = 0;
    
 //variable to cycle through questions
-var currentQuestion = 8;
+var currentQuestion = 0;
    
 //user's guess and correct answer variables
 var userGuess;
-var currentQuestionObject;
    
 //question variables
 var questionOne = {
@@ -70,7 +69,7 @@ var questionSeven = {
 var questionEight = {
 	name: "8. How many horcruxes did Lord Voldemort create?  (Hint:  It is considered the most magical number.)",
 	answer: "Seven",
-	options: ["Seven", "Six", "Four", "One"],
+	options: ["Four", "Six", "Seven", "One"],
 	picture: './assets/images/horcrux.gif'
 };
 
@@ -151,8 +150,7 @@ function resetQuiz() {
 	numOfLosses = 0;
 	numOfQuestionsMissed = 0;
 	currentQuestion = 0;
-	runGame();
-
+	switchToAnswers();
 }
 
 //function to populate questions in html
@@ -181,8 +179,6 @@ function checkForCorrectAnswer(guess) {
 		setTimeout(moveToNextQuestion, 3000);
 	}
 }
-
-//function to check for another object in questionArr
 
 
 //function to move to next question
