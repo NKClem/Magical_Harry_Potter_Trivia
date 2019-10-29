@@ -169,14 +169,14 @@ function checkForCorrectAnswer(guess) {
 		numOfWins++;
 		switchToGif();
 		$('#question').text('Correct! The answer is ' + questionArr[currentQuestion].answer + '!');
-		$('#gif-here').html($('<img>', {src: questionArr[currentQuestion].picture}));
-		setTimeout(moveToNextQuestion, 5000);
+		$('#gif-here').html($('<img>', {style: 'width: 100%', src: questionArr[currentQuestion].picture}));
+		setTimeout(moveToNextQuestion, 3000);
 		
 	} else {
 		numOfLosses++;
 		switchToGif();
 		$('#question').text('Nope... The correct answer is ' + questionArr[currentQuestion].answer + '.');
-		$('#gif-here').html($('<img>', {src: questionArr[currentQuestion].picture}));
+		$('#gif-here').html($('<img>', {style: 'width: 100%', src: questionArr[currentQuestion].picture}));
 		setTimeout(moveToNextQuestion, 3000);
 	}
 }

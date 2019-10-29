@@ -20,12 +20,15 @@ body {
 	font-family: 'Eagle Lake', cursive;
 }
 
+#button-column {
+	text-align: center;
+}
+
 #start-button {
 	color: #ffffff;
 	background-color: #300d80;
 	opacity: 1;
-	width: 500px;
-	height: 100px;
+	padding: 30px;
 	text-align: center;
 	font-family: 'Eagle Lake', cursive;
 	font-size: 24px;
