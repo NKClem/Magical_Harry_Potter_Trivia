@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
 //timer variable
-var time = 15;
+var time = 10;
 var quizTimer;
 var nextQuestion;
    
@@ -126,6 +126,7 @@ function runGame() {
 
 //quiz timer function
 function quizCountdown() {
+	$('#timer').show();
 	$('#timer').text('You have ' + time + ' seconds remaining!');
 	time--;
 	if (time < 5) {
@@ -145,7 +146,7 @@ function quizCountdown() {
 //reset quiz timer function
 function resetQuiz() {
 	$('.new-div').remove();
-	time = 15;
+	time = 10;
 	numOfWins = 0;
 	numOfLosses = 0;
 	numOfQuestionsMissed = 0;
@@ -176,7 +177,7 @@ function checkForCorrectAnswer(guess) {
 		switchToGif();
 		$('#question').text('Nope... The correct answer is ' + questionArr[currentQuestion].answer + '.');
 		$('#gif-here').html($('<img>', {src: questionArr[currentQuestion].picture}));
-		setTimeout(moveToNextQuestion, 5000);
+		setTimeout(moveToNextQuestion, 3000);
 	}
 }
 
@@ -187,7 +188,7 @@ function moveToNextQuestion() {
 	if (currentQuestion < questionArr.length){
 		switchToAnswers();
 		$('#timer').hide();
-		time = 15;
+		time = 10;
 		$('#timer').css('color', 'white').show();
 		runGame();
 	} else {
@@ -209,6 +210,7 @@ function switchToAnswers() {
 //function for end of game
 function endOfGame() {
 	$('#gif-here').hide();
+	$('#timer').hide();
 	$('.answers').removeClass('hover-class');
 	$('#question').text('Game Over!');
 	$('#question').append($('<div></div>').addClass('new-div').text('Correct Responses: ' + numOfWins));
