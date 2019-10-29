@@ -137,8 +137,8 @@ function quizCountdown() {
 		clearInterval(quizTimer);
 		switchToGif();
 		$('#question').text('Time is up! The answer is ' + questionArr[currentQuestion].answer + '!');
-		$('#gif-here').html($('<img>', {src: questionArr[currentQuestion].picture}));
-		setTimeout(moveToNextQuestion, 5000);
+		$('#gif-here').html($('<img>', {style: 'width: 100%', src: questionArr[currentQuestion].picture}));
+		setTimeout(moveToNextQuestion, 3000);
 	}
 
 }
